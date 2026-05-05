@@ -63,7 +63,12 @@ export default function Courses() {
                 }}
               />
             ) : (
-              <div className="h-40 w-full bg-slate-100" />
+              <img
+                src={fallbackImage(c.slug)}
+                alt={c.title}
+                className="h-40 w-full object-cover"
+                loading="lazy"
+              />
             )}
             <div className="p-4">
               <div className="font-medium">{c.title}</div>

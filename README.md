@@ -1,8 +1,30 @@
-# E-Learning Platform (Django REST API + React)
+# E-Learning Platform
 
-Production-style monorepo: **Django 5 + DRF** backend and **React 18 + Vite** frontend.
+A production-oriented full-stack E-Learning platform built with a Django REST API backend and a React frontend.
 
-## Quick start (Windows / local demo)
+## Tech Stack
+
+- Backend: Django 5, Django REST Framework, SimpleJWT, Channels
+- Frontend: React 18, Vite, React Query, Zustand
+- Database: PostgreSQL (Neon in production), SQLite (local option)
+- Deployment: Render (backend), Vercel (frontend)
+
+## Core Features
+
+- JWT-based authentication (signup, login, token refresh, profile endpoints)
+- Courses catalog with details, enrollments, and structured curriculum
+- 5-phase learning flow with readings, videos, and phase checkpoints
+- Quiz engine with MCQ validation and progress tracking
+- Certificate generation workflow for completed learning paths
+- Production-ready API docs at `/api/docs/`
+
+## Project Structure
+
+- `backend/` Django project, apps, API, business logic
+- `frontend/` React SPA and API client integration
+- `generate_report.py` utility for project documentation output
+
+## Local Development (Windows)
 
 ### Backend
 
@@ -18,8 +40,6 @@ python seed.py
 python manage.py runserver 0.0.0.0:8000
 ```
 
-Demo admin: `admin@demo.com` / `Adminpass123!` (after `seed.py`).
-
 ### Frontend
 
 ```powershell
@@ -28,9 +48,9 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173` — API calls proxy to `http://127.0.0.1:8000`.
+Frontend runs on `http://localhost:5173` and calls backend APIs through configured base URL/proxy.
 
-### Tests
+## Testing
 
 ```powershell
 cd backend
@@ -38,28 +58,13 @@ $env:DJANGO_SETTINGS_MODULE="config.settings.test"
 python -m pytest tests -q
 ```
 
-### Word report
+## Deployment Notes
 
-```powershell
-cd ..
-pip install python-docx
-python generate_report.py --output E_Learning_Project_Report.docx
-```
+- Backend (Render): set `DJANGO_SETTINGS_MODULE=config.settings.production` and Postgres env vars.
+- Frontend (Vercel): set `VITE_API_BASE_URL=https://<your-render-domain>/api/v1`.
+- Add CORS/CSRF trusted origins on backend for the Vercel frontend URL.
 
-## Structure
+## Collaboration Credit
 
-- `backend/` — Django project (`config/`), apps under `apps/`, shared `core/`
-- `frontend/` — Vite React SPA
-- `generate_report.py` — DOCX generator
-- `docs/` — extra notes (optional)
-
-## Environment
-
-See `backend/.env.example`. For PostgreSQL + Redis production paths, set `USE_SQLITE=0` and provide DB/Redis URLs.
-
-## Notes
-
-- **JWT**: access/refresh via `/api/v1/auth/login/`; optional HttpOnly cookies set on login view.
-- **Stripe**: without `STRIPE_SECRET_KEY`, checkout creates a **paid demo order** so flows remain testable.
-- **WebSocket**: `ws://localhost:8000/ws/chat/<room_name>/` (same-site session auth easiest in dev).
-- **Elasticsearch**: not bundled; use `search` query param via DRF `SearchFilter` (swap to ES later).
+This project was built by **Muhammad Haseeb** with support from partner **Ghania Tanveer**.  
+GitHub profile: [ghaniatanveer](https://github.com/ghaniatanveer)
