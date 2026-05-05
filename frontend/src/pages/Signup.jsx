@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import api from "../services/api";
 import { useAuthStore } from "../store/authStore";
 
@@ -27,7 +26,7 @@ export default function Signup() {
   });
 
   const onSubmit = async (values) => {
-    const res = await axios.post("/api/v1/auth/register/", values);
+    const res = await api.post("/auth/register/", values);
     setTokens(res.data.access, res.data.refresh);
     setUser(res.data.user);
     nav("/dashboard");

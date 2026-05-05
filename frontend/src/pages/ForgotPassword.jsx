@@ -1,12 +1,12 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const submit = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/v1/auth/password/reset/", { email });
+    const res = await api.post("/auth/password/reset/", { email });
     setMsg(res.data.detail);
   };
 

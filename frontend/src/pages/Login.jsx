@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import api from "../services/api";
 import { useAuthStore } from "../store/authStore";
 
@@ -18,7 +17,7 @@ export default function Login() {
   const { register, handleSubmit, formState } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = async (values) => {
-    const res = await axios.post("/api/v1/auth/login/", values);
+    const res = await api.post("/auth/login/", values);
     setTokens(res.data.access, res.data.refresh);
     const me = await api.get("/users/me/");
     setUser(me.data);
