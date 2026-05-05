@@ -247,6 +247,10 @@ AUTHENTICATION_BACKENDS = (
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = "DENY"
 if not DEBUG:
+    # Render/other proxies terminate TLS before Django. Trust forwarded proto/host
+    # to avoid HTTP<->HTTPS redirect loops in production.
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    USE_X_FORWARDED_HOST = True
     SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=True, cast=bool)
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
