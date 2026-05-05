@@ -2,6 +2,10 @@
 
 A production-oriented full-stack E-Learning platform built with a Django REST API backend and a React frontend.
 
+## Live Demo
+
+- Frontend: [https://gh-e-learning-platform.vercel.app/](https://gh-e-learning-platform.vercel.app/)
+
 ## Tech Stack
 
 - Backend: Django 5, Django REST Framework, SimpleJWT, Channels
